@@ -1,0 +1,72 @@
+﻿@using Fakture.ViewModels.User
+@model Fakture.ViewModels.User.UserVM
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+    <h2>@Model.Username</h2>
+    <div class="row">
+        <table class="table table-bordered" id="advanced-report-table">
+            <thead>
+                <tr>
+                    <th>
+                        Broj fakture
+                    </th>
+                    <th>
+                        Datum stvaranja
+                    </th>
+                    <th>
+                        Datum dospijeca
+                    </th>
+                    <th>
+                        Broj stavki
+                    </th>
+                    <th>
+                        Ukupna cijena bez poreza
+                    </th>
+                    <th>
+                        Ukupna cijena sa porezom
+                    </th>
+                    <th>
+                        Stvaratelj
+                    </th>
+                    <th>
+                        Primatelj
+                    </th>
+                    <th>
+                        Primatelj racuna
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var fakutra in Model.Fakture)
+                {
+                    <tr>
+                        <td>
+                            @fakutra.Id
+                        </td>
+                        <td>
+                            @fakutra.DatumKreiranja
+                        </td>
+                        <td>
+                            @fakutra.DatumDospijeca
+                        </td>
+                        <td>
+                            @fakutra.StavkeFakture.Count
+                        </td>
+                        <td>
+                            @fakutra.StavkeFakture.Sum(sf => sf.UkipnaCijenaSaPorezom)
+                        </td>
+                        <td>
+                            @fakutra.StavkeFakture.Sum(sf => sf.UkipnaCijenaSaPorezom)
+                        </td>
+                        <td>@fakutra.Stvaratelj.UserName</td>
+                        <td>@fakutra.Primatelj</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</main>

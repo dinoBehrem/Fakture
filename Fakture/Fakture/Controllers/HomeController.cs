@@ -8,11 +8,12 @@ using System.Web.Mvc;
 
 namespace Fakture.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         ApplicationDbContext dbContext = new ApplicationDbContext();
 
-        [Authorize]
+        
         public ActionResult Index()
         {
             var user = dbContext.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
@@ -32,7 +33,6 @@ namespace Fakture.Controllers
             return View(model);
         }
 
-        [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

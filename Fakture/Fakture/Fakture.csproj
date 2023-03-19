@@ -48,6 +48,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
@@ -169,13 +170,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FaktureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Entities\Faktura.cs" />
     <Compile Include="Entities\StavkaFakture.cs" />
+    <Compile Include="Enums\Porezi.cs" />
+    <Compile Include="FakturaService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IFaktureService.cs" />
+    <Compile Include="MEF\BHPorez.cs" />
+    <Compile Include="MEF\HRPorez.cs" />
+    <Compile Include="MEF\IPorezCalculation.cs" />
+    <Compile Include="MEF\PorezCalcualtionManager.cs" />
     <Compile Include="Migrations\202303180933174_InitialMigration.cs" />
     <Compile Include="Migrations\202303180933174_InitialMigration.designer.cs">
       <DependentUpon>202303180933174_InitialMigration.cs</DependentUpon>
@@ -186,6 +195,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Fakture\FakturaInsertVM.cs" />
     <Compile Include="ViewModels\User\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -259,10 +269,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Fakture\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\Fakture\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

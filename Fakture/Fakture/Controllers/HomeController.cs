@@ -1,4 +1,5 @@
 ﻿using Fakture.Models;
+using Fakture.Services;
 using Fakture.ViewModels.User;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,13 @@ namespace Fakture.Controllers
     public class HomeController : Controller
     {
         ApplicationDbContext dbContext = new ApplicationDbContext();
-
+        FakturaService _fakturaService = new FakturaService();
         
         public ActionResult Index()
         {
             var user = dbContext.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
 
-            var fakture = dbContext.Fakture
-                .Include("StavkeFakture")
-                .Where(f => f.StvarateljId == user.Id)
-                .ToList();
+            var fakture = _fakturaService.DobaviFakture(user);
 
             var model = new UserVM()
             {

@@ -1,5 +1,6 @@
 ﻿using Fakture.Enums;
 using Fakture.MEF;
+using Fakture.Services;
 using Fakture.ViewModels.Fakture;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace Fakture.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Porez, DatumKreiranja, DatumDospijeca, CijenaBezPoreza, Primatelj")] FakturaInsertVM faktura)
+        public ActionResult Create([Bind(Include = "Porez, DatumKreiranja, DatumDospijeca, CijenaBezPoreza, Primatelj")] FakturaInsertVM fakturaInsert)
         {
             ViewBag.Porez = new List<SelectListItem>()
             {
@@ -54,30 +55,38 @@ namespace Fakture.Controllers
                 },
             };
 
-            if (!ValidateFaktura(faktura))
+            if (!ValidateFaktura(fakturaInsert))
             {
                 return View();
             }
 
-            var user =  User.Identity.Name;
+            fakturaInsert.Username = User.Identity.Name;
 
-            faktura.Username = user;
+            var faktura =  fakturaService.AddFaktura(fakturaInsert);
 
-            fakturaService.AddFaktura(faktura);
-
-            return View();
+            return RedirectToAction(nameof(Details), new { id = faktura.Id });
         }
         
-        // GET: Edit
-        public ActionResult Edit()
+        // GET: Details
+        public ActionResult Details(int id)
         {
-            return View();
+            var faktura = fakturaService.DobaviFakturu(id, User.Identity.Name);
+
+            return View(faktura);
         }
 
         [HttpPost]
-        public ActionResult Edit(FakturaInsertVM faktura)
+        public ActionResult Edit(int id)
         {
-            return View();
+            var faktura = fakturaService.DobaviFakturu(id, User.Identity.Name);
+
+            if (faktura == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+
+            return View(faktura);
         }
 
         #region Utils

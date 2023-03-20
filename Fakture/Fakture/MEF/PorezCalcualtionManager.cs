@@ -37,7 +37,7 @@ namespace Fakture.MEF
                 porezCalculation = GetPorezCalculation(typeof(HRPorez));
             }
 
-            return porezCalculation.IzracunajCijenuSaPorezom(cijena);
+            return Math.Round(porezCalculation.IzracunajCijenuSaPorezom(cijena),2);
         }
 
         private IPorezCalculation GetPorezCalculation(Type type)

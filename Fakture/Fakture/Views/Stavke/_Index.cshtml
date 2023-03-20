@@ -1,0 +1,40 @@
+﻿
+<div class="row">
+    <table class="table table-bordered" id="advanced-report-table">
+        <thead>
+            <tr>
+                <th>
+                    Opis
+                </th>
+                <th>
+                    Kolicina
+                </th>
+                <th>
+                    Cijena bez poreza
+                </th>
+                <th>
+                    Ukupna cijena
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stavka in Model.Stavke)
+            {
+                <tr>
+                    <td>
+                        @stavka.Opis
+                    </td>
+                    <td>
+                        @stavka.Kolicina
+                    </td>
+                    <td>
+                        @stavka.CijenaBezPoreza
+                    </td>
+                    <td>
+                        @stavka.UkupnaCijena
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -176,7 +176,13 @@
     <Compile Include="Entities\Faktura.cs" />
     <Compile Include="Entities\StavkaFakture.cs" />
     <Compile Include="Enums\Porezi.cs" />
-    <Compile Include="FakturaService.cs" />
+    <Compile Include="Extenesions\PriceCalculationExtension.cs" />
+    <Compile Include="Interfaces\IStavkeFaktureService.cs" />
+    <Compile Include="Migrations\202303200904450_PorezColumnAdded.cs" />
+    <Compile Include="Migrations\202303200904450_PorezColumnAdded.designer.cs">
+      <DependentUpon>202303200904450_PorezColumnAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\FakturaService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,8 +200,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\StavkeFaktureService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Fakture\FakturaInsertVM.cs" />
+    <Compile Include="ViewModels\Fakture\FakturaVM.cs" />
+    <Compile Include="ViewModels\Fakture\FaktureUpdateVM.cs" />
+    <Compile Include="ViewModels\StavkeFakture\StavkaFaktureVM.cs" />
     <Compile Include="ViewModels\User\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +280,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Fakture\Create.cshtml" />
+    <Content Include="Views\Fakture\Details.cshtml" />
+    <Content Include="Views\Fakture\Edit.cshtml" />
+    <Content Include="Views\Stavke\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -304,6 +317,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202303180933174_InitialMigration.resx">
       <DependentUpon>202303180933174_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303200904450_PorezColumnAdded.resx">
+      <DependentUpon>202303200904450_PorezColumnAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

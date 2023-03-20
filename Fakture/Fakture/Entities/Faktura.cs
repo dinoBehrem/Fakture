@@ -1,4 +1,5 @@
-﻿using Fakture.Models;
+﻿using Fakture.Enums;
+using Fakture.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,7 +24,7 @@ namespace Fakture.Entities
         public decimal CijenaBezPoreza { get; set; }
         public decimal CijenaSaPorezom { get; set; }
         public string Primatelj { get; set; }
-
+        public Porezi Porez { get; set; }
         public string StvarateljId { get; set; }
         public ApplicationUser Stvaratelj { get; set; }
 

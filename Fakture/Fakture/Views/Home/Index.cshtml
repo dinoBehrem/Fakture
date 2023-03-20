@@ -35,7 +35,7 @@
                         Primatelj
                     </th>
                     <th>
-                        Primatelj racuna
+                        Detalji
                     </th>
                 </tr>
             </thead>
@@ -53,19 +53,26 @@
                             @fakutra.DatumDospijeca
                         </td>
                         <td>
-                            @fakutra.StavkeFakture.Count
+                            @{
+                                var count = 0;
+                                if(fakutra.Stavke != null)
+                                {
+                                    count = @fakutra.Stavke.Count;
+                                }
+                            }
+                            @count
                         </td>
                         <td>
-                            @fakutra.StavkeFakture.Sum(sf => sf.UkipnaCijenaSaPorezom)
+                            @fakutra.CijenaBezPoreza
                         </td>
                         <td>
-                            @fakutra.StavkeFakture.Sum(sf => sf.UkipnaCijenaSaPorezom)
+                            @fakutra.CijenaSaPorezom
                         </td>
                         <td>@fakutra.Stvaratelj.UserName</td>
                         <td>@fakutra.Primatelj</td>
+                        <td><a href="@Url.Action("Details", "Fakture", new { id = fakutra.Id })" class="btn btn-warning">Detalji</a></td>
                     </tr>
                 }
-
             </tbody>
         </table>
     </div>

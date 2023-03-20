@@ -1,0 +1,19 @@
+﻿@using Fakture.ViewModels.Fakture
+@model Fakture.ViewModels.Fakture.FakturaVM
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Izmjeni</h2>
+
+<h5>Datum kreiranja: @Model.DatumKreiranja</h5>
+<h5>Datum dospijeca: @Model.DatumDospijeca</h5>
+<h5>Primatelj: @Model.Primatelj</h5>
+<h5>Stvaratelj: @Model.Stvaratelj.Email</h5>
+
+<h2>Stavke fakture</h2>
+
+@{
+    Html.RenderAction("Index", "StavkeFakture");
+}
+

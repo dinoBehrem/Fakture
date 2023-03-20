@@ -15,7 +15,7 @@ namespace Fakture.Entities
         public string Opis{ get; set; }
         public int Kolicina{ get; set; }
         public decimal CijenaBezPoreza { get; set; }
-        public decimal UkipnaCijenaSaPorezom { get; set; }
+        public decimal UkupnaCijena { get; set; }
 
         public int FakturaId { get; set; }
         public Faktura Faktura { get; set; }

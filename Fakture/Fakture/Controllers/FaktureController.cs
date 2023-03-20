@@ -75,7 +75,7 @@ namespace Fakture.Controllers
             return View(faktura);
         }
 
-        [HttpPost]
+        
         public ActionResult Edit(int id)
         {
             var faktura = fakturaService.DobaviFakturu(id, User.Identity.Name);

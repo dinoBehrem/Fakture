@@ -70,7 +70,10 @@
                         </td>
                         <td>@fakutra.Stvaratelj.UserName</td>
                         <td>@fakutra.Primatelj</td>
-                        <td><a href="@Url.Action("Details", "Fakture", new { id = fakutra.Id })" class="btn btn-warning">Detalji</a></td>
+                        <td>
+                            <a href="@Url.Action("Details", "Fakture", new { id = fakutra.Id })" class="btn btn-warning">Detalji</a>
+                            <a href="@Url.Action("Edit", "Fakture", new { id = fakutra.Id })" class="btn btn-success">Izmjeni</a>
+                        </td>
                     </tr>
                 }
             </tbody>

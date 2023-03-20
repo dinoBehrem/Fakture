@@ -173,6 +173,7 @@
     <Compile Include="Controllers\FaktureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StavkeFaktureController.cs" />
     <Compile Include="Entities\Faktura.cs" />
     <Compile Include="Entities\StavkaFakture.cs" />
     <Compile Include="Enums\Porezi.cs" />
@@ -283,6 +284,7 @@
     <Content Include="Views\Fakture\Details.cshtml" />
     <Content Include="Views\Fakture\Edit.cshtml" />
     <Content Include="Views\Stavke\_Index.cshtml" />
+    <Content Include="Views\StavkeFakture\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

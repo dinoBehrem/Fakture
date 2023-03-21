@@ -1,0 +1,29 @@
+﻿@model Fakture.ViewModels.StavkeFakture.StavkeAddVM
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<form method="post">
+    <div class="">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Opis, "Opis")
+            @Html.EditorFor(model => model.Opis, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Opis)
+        </div>
+
+        <div class="">
+            @Html.LabelFor(model => model.Kolicina, "Kolicina")
+            @Html.EditorFor(model => model.Kolicina, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
+            @Html.ValidationMessageFor(model => model.Kolicina)
+        </div>
+
+        <div class="">
+            @Html.LabelFor(model => model.CijenaBezPoreza, "Cijena bez poreza")
+            @Html.EditorFor(model => model.CijenaBezPoreza, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
+            @Html.ValidationMessageFor(model => model.CijenaBezPoreza)
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Dodaj</button>
+</form>

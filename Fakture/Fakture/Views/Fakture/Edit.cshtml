@@ -11,9 +11,7 @@
 <h5>Primatelj: @Model.Primatelj</h5>
 <h5>Stvaratelj: @Model.Stvaratelj.Email</h5>
 
-<h2>Stavke fakture</h2>
-
 @{
-    Html.RenderAction("Index", "StavkeFakture");
+    Html.RenderAction("Index", "StavkeFakture", new { fakturaId = Model.Id});
 }
 

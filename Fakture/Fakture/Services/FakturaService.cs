@@ -4,6 +4,7 @@ using Fakture.Interfaces;
 using Fakture.MEF;
 using Fakture.Models;
 using Fakture.ViewModels.Fakture;
+using Fakture.ViewModels.Shared;
 using Fakture.ViewModels.StavkeFakture;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Fakture.Services
         ApplicationDbContext _context = new ApplicationDbContext();
         PorezCalcualtionManager _porezCalculation = new PorezCalcualtionManager();
 
-        public FakturaVM AddFaktura(FakturaInsertVM fakturaInsert)
+        public Result<FakturaVM> AddFaktura(FakturaInsertVM fakturaInsert)
         {
             var user = _context.Users.FirstOrDefault(u => u.UserName == fakturaInsert.Username);
 
@@ -35,19 +36,28 @@ namespace Fakture.Services
             _context.Fakture.Add(faktura);
             _context.SaveChanges();
 
-            return new FakturaVM()
+            var result = new Result<FakturaVM>()
             {
-                Id = faktura.Id,
-                CijenaBezPoreza = faktura.CijenaBezPoreza,
-                CijenaSaPorezom = faktura.CijenaSaPorezom,
-                DatumDospijeca = faktura.DatumDospijeca,
-                DatumKreiranja = faktura.DatumKreiranja,
-                Primatelj = faktura.Primatelj,
-                Stvaratelj = faktura.Stvaratelj
+                Data = new FakturaVM()
+                {
+                    Id = faktura.Id,
+                    CijenaBezPoreza = faktura.CijenaBezPoreza,
+                    CijenaSaPorezom = faktura.CijenaSaPorezom,
+                    DatumDospijeca = faktura.DatumDospijeca,
+                    DatumKreiranja = faktura.DatumKreiranja,
+                    Primatelj = faktura.Primatelj,
+                    Stvaratelj = faktura.Stvaratelj
+                },
+                Errors = new List<string>() { },
+                IsSuccess = true,
+                Message = "Uspjesno dodavanje",
+                Status = "OK"
             };
+
+            return result;
         }
 
-        public List<FakturaVM> DobaviFakture(ApplicationUser user)
+        public Result<List<FakturaVM>> DobaviFakture(ApplicationUser user)
         {
             var fakture = _context.Fakture
                 .Include(f => f.StavkeFakture)
@@ -77,10 +87,15 @@ namespace Fakture.Services
                 faktura.CijenaSaPorezom = _porezCalculation.PriceCalcualtion(faktura.Porez, faktura.CijenaBezPoreza);
             }
 
-            return fakture;
+            var result = new Result<List<FakturaVM>>()
+            {
+                Data = fakture,
+            };
+
+            return result;
         }
 
-        public FakturaVM DobaviFakturu(int fakturaId, string username)
+        public Result<FakturaVM> DobaviFakturu(int fakturaId, string username)
         {
             var user = _context.Users.FirstOrDefault(u => u.UserName == username);
 
@@ -108,15 +123,30 @@ namespace Fakture.Services
                 })
                 .FirstOrDefault();
 
+            if (faktura.Stvaratelj.Id != user.Id)
+            {
+                return new Result<FakturaVM>()
+                {
+                    IsSuccess = false,
+                    Message = "Nema permisije",
+                    Status = "NOT_FOUND",
+                    Errors = new List<string>() { "Faktura nije pronadjena!"}
+                };              
+            }
+
             faktura.CijenaBezPoreza = faktura.Stavke.Sum(s => s.UkupnaCijena);
             faktura.CijenaBezPoreza = _porezCalculation.PriceCalcualtion(faktura.Porez, faktura.CijenaBezPoreza);
 
-            if (faktura.Stvaratelj.Id != user.Id)
+            var result = new Result<FakturaVM>()
             {
-                return null;
-            }
+                IsSuccess = true,
+                Message = "Faktura pronadjena",
+                Status = "OK",
+                Errors = new List<string>() { },
+                Data = faktura
+            };
 
-            return faktura;
+            return result;
         }
     }
 }

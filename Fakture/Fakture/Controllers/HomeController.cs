@@ -25,7 +25,7 @@ namespace Fakture.Controllers
             {
                 Username = user.UserName,
                 Email = user.Email,
-                Fakture = fakture,
+                Fakture = fakture.Data,
             };
 
             return View(model);

@@ -1,4 +1,5 @@
-﻿using Fakture.ViewModels.StavkeFakture;
+﻿using Fakture.ViewModels.Shared;
+using Fakture.ViewModels.StavkeFakture;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace Fakture.Interfaces
 {
     public interface IStavkeFaktureService
     {
-        void DodajStavkuFakture(StavkaFaktureVM stavkaFakture);
-        List<StavkaFaktureVM> DobaviStavkeRacuna(int id, string username);
+        StavkeAddVM DodajStavkuFakture(StavkeAddVM stavkaFakture);
+        List<StavkaFaktureVM> DobaviStavkeRacuna(int fakturaId);
+        Result<StavkeAddVM> DobaviStavku(int stavkaId, string username);
+        StavkeAddVM IzmjeniStavku(StavkeAddVM stavka);
     }
 }

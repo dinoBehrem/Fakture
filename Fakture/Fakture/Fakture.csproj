@@ -206,7 +206,10 @@
     <Compile Include="ViewModels\Fakture\FakturaInsertVM.cs" />
     <Compile Include="ViewModels\Fakture\FakturaVM.cs" />
     <Compile Include="ViewModels\Fakture\FaktureUpdateVM.cs" />
+    <Compile Include="ViewModels\Shared\Result.cs" />
     <Compile Include="ViewModels\StavkeFakture\StavkaFaktureVM.cs" />
+    <Compile Include="ViewModels\StavkeFakture\StavkeAddVM.cs" />
+    <Compile Include="ViewModels\StavkeFakture\StavkeIndexVM.cs" />
     <Compile Include="ViewModels\User\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -283,8 +286,10 @@
     <Content Include="Views\Fakture\Create.cshtml" />
     <Content Include="Views\Fakture\Details.cshtml" />
     <Content Include="Views\Fakture\Edit.cshtml" />
-    <Content Include="Views\Stavke\_Index.cshtml" />
-    <Content Include="Views\StavkeFakture\_Index.cshtml" />
+    <Content Include="Views\Shared\_Stavke.cshtml" />
+    <Content Include="Views\Shared\_StavkeEdit.cshtml" />
+    <Content Include="Views\StavkeFakture\Create.cshtml" />
+    <Content Include="Views\StavkeFakture\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

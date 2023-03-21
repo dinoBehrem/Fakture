@@ -62,9 +62,14 @@ namespace Fakture.Controllers
 
             fakturaInsert.Username = User.Identity.Name;
 
-            var faktura =  fakturaService.AddFaktura(fakturaInsert);
+            var result =  fakturaService.AddFaktura(fakturaInsert);
 
-            return RedirectToAction(nameof(Details), new { id = faktura.Id });
+            if (!result.IsSuccess)
+            {
+                return View();
+            }
+
+            return RedirectToAction(nameof(Edit), new { id = result.Data.Id });
         }
         
         // GET: Details
@@ -72,7 +77,12 @@ namespace Fakture.Controllers
         {
             var faktura = fakturaService.DobaviFakturu(id, User.Identity.Name);
 
-            return View(faktura);
+            if (!faktura.IsSuccess)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(faktura.Data);
         }
 
         
@@ -80,13 +90,13 @@ namespace Fakture.Controllers
         {
             var faktura = fakturaService.DobaviFakturu(id, User.Identity.Name);
 
-            if (faktura == null)
+            if (!faktura.IsSuccess)
             {
                 return RedirectToAction("Index", "Home");
             }
 
 
-            return View(faktura);
+            return View(faktura.Data);
         }
 
         #region Utils

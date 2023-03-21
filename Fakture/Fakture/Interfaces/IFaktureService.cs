@@ -1,5 +1,6 @@
 ﻿using Fakture.Models;
 using Fakture.ViewModels.Fakture;
+using Fakture.ViewModels.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace Fakture.Interfaces
 {
     public interface IFaktureService
     {
-        FakturaVM AddFaktura(FakturaInsertVM fakturaInsert);
-        FakturaVM DobaviFakturu(int fakturaId, string username);
-        List<FakturaVM> DobaviFakture(ApplicationUser user);
+        Result<FakturaVM> AddFaktura(FakturaInsertVM fakturaInsert);
+        Result<FakturaVM> DobaviFakturu(int fakturaId, string username);
+        Result<List<FakturaVM>> DobaviFakture(ApplicationUser user);
     }
 }

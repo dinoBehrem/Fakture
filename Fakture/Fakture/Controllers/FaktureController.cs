@@ -1,5 +1,6 @@
 ﻿using Fakture.Enums;
 using Fakture.MEF;
+using Fakture.Models;
 using Fakture.Services;
 using Fakture.ViewModels.Fakture;
 using System;
@@ -39,6 +40,7 @@ namespace Fakture.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Porez, DatumKreiranja, DatumDospijeca, CijenaBezPoreza, Primatelj")] FakturaInsertVM fakturaInsert)
         {
             ViewBag.Porez = new List<SelectListItem>()
@@ -95,20 +97,68 @@ namespace Fakture.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            ViewBag.Porez = new SelectList(new List<SelectListItem>()
+            {
+                new SelectListItem()
+                {
+                    Text = Porezi.BH.ToString(),
+                    Value = Porezi.BH.ToString()
+                },
+                new SelectListItem()
+                {
+                    Text = Porezi.HR.ToString(),
+                    Value = Porezi.HR.ToString()
+                },
+            }, "Value", "Text", faktura.Data.Porez);
 
             return View(faktura.Data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Porez, DatumKreiranja, DatumDospijeca, CijenaBezPoreza, Primatelj")] FakturaVM fakturaVM)
+        {
+            if (!ValidDate(fakturaVM.DatumDospijeca))
+            {
+                return RedirectToAction("Edit", fakturaVM.Id);
+            }
+
+            var faktura = fakturaService.IzmjeniFakturu(fakturaVM);
+
+            if (!faktura.IsSuccess)
+            {
+                return RedirectToAction("Edit", fakturaVM.Id);
+            }
+
+            var result = fakturaService.DobaviFakturu(fakturaVM.Id, User.Identity.Name);
+
+            ViewBag.Porez = new SelectList(new List<SelectListItem>()
+            {
+                new SelectListItem()
+                {
+                    Text = Porezi.BH.ToString(),
+                    Value = Porezi.BH.ToString()
+                },
+                new SelectListItem()
+                {
+                    Text = Porezi.HR.ToString(),
+                    Value = Porezi.HR.ToString()
+                },
+            }, "Value", "Text", faktura.Data.Porez);
+
+            return View(result.Data);
         }
 
         #region Utils
 
         private bool ValidateFaktura(FakturaInsertVM fakturaInsert)
         {
-            return ValidDate(fakturaInsert.DatumDospijeca) || fakturaInsert.CijenaBezPoreza > 0;
+            return ValidDate(fakturaInsert.DatumDospijeca);
         }
 
         private bool ValidDate(DateTime date)
         {
-            return date < DateTime.Now;
+            return date > DateTime.Now;
         }
         
         #endregion Utils

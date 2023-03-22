@@ -5,12 +5,13 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Detalji</h2>
+<h2 class="mb-4">Detalji</h2>
 
-<h5>Datum kreiranja: @Model.DatumKreiranja</h5>
-<h5>Datum dospijeca: @Model.DatumDospijeca</h5>
 <h5>Primatelj: @Model.Primatelj</h5>
-<h5>Stvaratelj: @Model.Stvaratelj.Email</h5>
+<div class="row mb-2">
+    <h5 class="col-5">Datum kreiranja: @Model.DatumKreiranja</h5>
+    <h5 class="col-5">Datum dospijeca: @Model.DatumDospijeca</h5>
+</div>
 
 <h2>Stavke fakture</h2>
 <div class="row">

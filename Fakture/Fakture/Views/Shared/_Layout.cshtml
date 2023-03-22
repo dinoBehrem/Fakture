@@ -40,5 +40,21 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#btnShowModal").click(function () {
+                $("#fakturaModal").modal('show');
+            });
+
+            $("#btnHideModal").click(function () {
+                $("#fakturaModal").modal('hide');
+            });
+
+            $("#closeModal").click(function () {
+                $("#fakturaModal").modal('hide');
+            });
+        });
+    </script>
 </body>
 </html>

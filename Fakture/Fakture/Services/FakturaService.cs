@@ -6,7 +6,9 @@ using Fakture.Models;
 using Fakture.ViewModels.Fakture;
 using Fakture.ViewModels.Shared;
 using Fakture.ViewModels.StavkeFakture;
+using Fakture.ViewModels.User;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -23,14 +25,18 @@ namespace Fakture.Services
         {
             var user = _context.Users.FirstOrDefault(u => u.UserName == fakturaInsert.Username);
 
+            var count = _context.Fakture.Where(f => f.DatumKreiranja.Year == DateTime.UtcNow.Year).Count();
+
             var faktura = new Faktura()
             {
                 CijenaBezPoreza = fakturaInsert.CijenaBezPoreza,
                 DatumDospijeca = fakturaInsert.DatumDospijeca,
-                CijenaSaPorezom = _porezCalculation.PriceCalcualtion(fakturaInsert.Porez, fakturaInsert.CijenaBezPoreza),
+                //CijenaSaPorezom = _porezCalculation.PriceCalcualtion(fakturaInsert.Porez, fakturaInsert.CijenaBezPoreza),
                 DatumKreiranja = DateTime.UtcNow,
                 Primatelj = fakturaInsert.Primatelj,
-                StvarateljId = user.Id
+                StvarateljId = user.Id,
+                Kod = $"F-{DateTime.UtcNow:yy}/{count}",
+                Porez = fakturaInsert.Porez
             };
 
             _context.Fakture.Add(faktura);
@@ -46,7 +52,8 @@ namespace Fakture.Services
                     DatumDospijeca = faktura.DatumDospijeca,
                     DatumKreiranja = faktura.DatumKreiranja,
                     Primatelj = faktura.Primatelj,
-                    Stvaratelj = faktura.Stvaratelj
+                    Stvaratelj = faktura.Stvaratelj,
+                    Kod = faktura.Kod
                 },
                 Errors = new List<string>() { },
                 IsSuccess = true,
@@ -57,8 +64,10 @@ namespace Fakture.Services
             return result;
         }
 
-        public Result<List<FakturaVM>> DobaviFakture(ApplicationUser user)
+        public Result<UserVM> DobaviFakture(string username)
         {
+            var user = _context.Users.FirstOrDefault(u => u.UserName == username);
+
             var fakture = _context.Fakture
                 .Include(f => f.StavkeFakture)
                 .Include(f => f.Stvaratelj)
@@ -68,6 +77,7 @@ namespace Fakture.Services
                     Id = f.Id,
                     DatumDospijeca = f.DatumDospijeca,
                     DatumKreiranja = f.DatumKreiranja,
+                    Kod = f.Kod,
                     Primatelj = f.Primatelj,
                     Stvaratelj = f.Stvaratelj,
                     Porez = f.Porez,
@@ -87,9 +97,19 @@ namespace Fakture.Services
                 faktura.CijenaSaPorezom = _porezCalculation.PriceCalcualtion(faktura.Porez, faktura.CijenaBezPoreza);
             }
 
-            var result = new Result<List<FakturaVM>>()
+            var korisnickeFakture = new UserVM()
             {
-                Data = fakture,
+                Email = user.Email,
+                Fakture = fakture,
+                Username = user.UserName
+            };
+
+            var result = new Result<UserVM>()
+            {
+                IsSuccess = true,
+                Message = "Fakture uspjesno dobavljene!",
+                Status = "OK",
+                Data = korisnickeFakture,
             };
 
             return result;
@@ -144,6 +164,29 @@ namespace Fakture.Services
                 Status = "OK",
                 Errors = new List<string>() { },
                 Data = faktura
+            };
+
+            return result;
+        }
+
+        public Result<FakturaVM> IzmjeniFakturu(FakturaVM fakturaVM)
+        {
+            var entity = _context.Fakture.Find(fakturaVM.Id);
+
+            entity.DatumDospijeca = fakturaVM.DatumDospijeca;
+            entity.Primatelj = fakturaVM.Primatelj;
+            entity.Porez = fakturaVM.Porez;
+
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            var result = new Result<FakturaVM>()
+            {
+                IsSuccess = true,
+                Message = "Faktura pronadjena",
+                Status = "OK",
+                Errors = new List<string>() { },
+                Data = fakturaVM
             };
 
             return result;

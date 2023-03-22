@@ -14,7 +14,6 @@ namespace Fakture.Services
     public class StavkeFaktureService : IStavkeFaktureService
     {
         ApplicationDbContext _context = new ApplicationDbContext();
-        PorezCalcualtionManager porezCalculation = new PorezCalcualtionManager();
 
         public List<StavkaFaktureVM> DobaviStavkeRacuna(int id)
         {
@@ -58,7 +57,7 @@ namespace Fakture.Services
                     IsSuccess = false,
                     Message = "Nemate permisije",
                     Status = "NOT_FOUND",
-                    Errors = new List<string>() { "Stavka nije pronadjena!w"},
+                    Errors = new List<string>() { "Stavka nije pronadjena!"},
                     Data = model
                 };
             }
@@ -79,7 +78,7 @@ namespace Fakture.Services
             _context.StavkeFakture.Add(new StavkaFakture()
             {
                 Kolicina = stavkaFakture.Kolicina,
-                CijenaBezPoreza = stavkaFakture.Kolicina,
+                CijenaBezPoreza = stavkaFakture.CijenaBezPoreza,
                 Opis = stavkaFakture.Opis,
                 UkupnaCijena = stavkaFakture.CijenaBezPoreza * stavkaFakture.Kolicina,
                 FakturaId = stavkaFakture.FakturaId

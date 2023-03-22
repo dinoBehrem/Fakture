@@ -183,6 +183,10 @@
     <Compile Include="Migrations\202303200904450_PorezColumnAdded.designer.cs">
       <DependentUpon>202303200904450_PorezColumnAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303211615190_KodFakture_Added.cs" />
+    <Compile Include="Migrations\202303211615190_KodFakture_Added.designer.cs">
+      <DependentUpon>202303211615190_KodFakture_Added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\FakturaService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -327,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303200904450_PorezColumnAdded.resx">
       <DependentUpon>202303200904450_PorezColumnAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303211615190_KodFakture_Added.resx">
+      <DependentUpon>202303211615190_KodFakture_Added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

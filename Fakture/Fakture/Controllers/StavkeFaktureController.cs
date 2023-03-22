@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Fakture.Controllers
 {
+    [Authorize]
     public class StavkeFaktureController : Controller
     {
         StavkeFaktureService _service = new StavkeFaktureService();
@@ -66,6 +67,7 @@ namespace Fakture.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(StavkeAddVM stavkeAdd)
         {
             if (!IsValidModel(stavkeAdd))
@@ -80,7 +82,7 @@ namespace Fakture.Controllers
 
         private bool IsValidModel(StavkeAddVM stavkeAdd)
         {
-            return stavkeAdd.Kolicina > 1 || stavkeAdd.CijenaBezPoreza > 1;
+            return stavkeAdd.Kolicina >= 1 || stavkeAdd.CijenaBezPoreza >= 1;
         }
     }
 }

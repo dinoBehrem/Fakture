@@ -19,6 +19,7 @@ namespace Fakture.Entities
         }
 
         public int Id { get; set; }
+        public string Kod { get; set; }
         public DateTime DatumKreiranja { get; set; }
         public DateTime DatumDospijeca { get; set; }
         public decimal CijenaBezPoreza { get; set; }

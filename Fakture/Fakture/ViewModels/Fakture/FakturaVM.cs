@@ -17,6 +17,7 @@ namespace Fakture.ViewModels.Fakture
         public decimal CijenaSaPorezom { get; set; }
         public string Primatelj { get; set; }
         public Porezi Porez { get; set; }
+        public string Kod { get; set; }
 
         public ApplicationUser Stvaratelj { get; set; }
         public List<StavkaFaktureVM> Stavke { get; set; }

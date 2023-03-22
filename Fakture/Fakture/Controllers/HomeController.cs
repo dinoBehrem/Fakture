@@ -17,18 +17,9 @@ namespace Fakture.Controllers
         
         public ActionResult Index()
         {
-            var user = dbContext.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            var model = _fakturaService.DobaviFakture(User.Identity.Name);
 
-            var fakture = _fakturaService.DobaviFakture(user);
-
-            var model = new UserVM()
-            {
-                Username = user.UserName,
-                Email = user.Email,
-                Fakture = fakture.Data,
-            };
-
-            return View(model);
+            return View(model.Data);
         }
 
         public ActionResult About()

@@ -1,13 +1,12 @@
-﻿@using Fakture.ViewModels.User
-@model Fakture.ViewModels.User.UserVM
+﻿@model Fakture.ViewModels.User.UserVM
 @{
     ViewBag.Title = "Home Page";
 }
 
 <main>
     <div class="row mb-2">
-     <h2 class="col-10">@Model.Username</h2>
-     <a href="@Url.Action("Create", "Fakture")" class="col-2 btn btn-success">Dodaj</a>
+        <h2 class="col-11">@Model.Username</h2>
+        <a href="@Url.Action("Create", "Fakture")" class="col-1 btn btn-success">Dodaj</a>
     </div>
     <div class="row">
         <table class="table table-bordered" id="advanced-report-table">
@@ -32,9 +31,6 @@
                         Ukupna cijena sa porezom
                     </th>
                     <th>
-                        Stvaratelj
-                    </th>
-                    <th>
                         Primatelj
                     </th>
                     <th>
@@ -47,7 +43,7 @@
                 {
                     <tr>
                         <td>
-                            @fakutra.Id
+                            @fakutra.Kod
                         </td>
                         <td>
                             @fakutra.DatumKreiranja
@@ -58,7 +54,7 @@
                         <td>
                             @{
                                 var count = 0;
-                                if(fakutra.Stavke != null)
+                                if (fakutra.Stavke != null)
                                 {
                                     count = @fakutra.Stavke.Count;
                                 }
@@ -71,11 +67,10 @@
                         <td>
                             @fakutra.CijenaSaPorezom
                         </td>
-                        <td>@fakutra.Stvaratelj.UserName</td>
                         <td>@fakutra.Primatelj</td>
-                        <td>
-                            <a href="@Url.Action("Details", "Fakture", new { id = fakutra.Id })" class="btn btn-warning">Detalji</a>
-                            <a href="@Url.Action("Edit", "Fakture", new { id = fakutra.Id })" class="btn btn-success">Izmjeni</a>
+                        <td class="row">
+                            <a href="@Url.Action("Details", "Fakture", new { id = fakutra.Id })" class="btn btn-warning col-5">Detalji</a>
+                            <a href="@Url.Action("Edit", "Fakture", new { id = fakutra.Id })" class="btn btn-primary col-5">Izmjeni</a>
                         </td>
                     </tr>
                 }

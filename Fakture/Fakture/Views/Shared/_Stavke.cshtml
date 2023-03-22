@@ -1,7 +1,9 @@
 ﻿@model Fakture.ViewModels.StavkeFakture.StavkeIndexVM
 
-<h2>Stavke</h2>
-<a href="@Url.Action("Create", "StavkeFakture", new { fakturaId = Model.FakturaId})">Dodaj</a>
+<div class="row mb-2">
+    <h2 class="col-11">Stavke</h2>
+    <a class="btn btn-success col-1" href="@Url.Action("Create", "StavkeFakture", new { fakturaId = Model.FakturaId})">Dodaj</a>
+</div>
 <div class="row">
     <table class="table table-bordered" id="advanced-report-table">
         <thead>
@@ -40,7 +42,7 @@
                         @stavka.UkupnaCijena
                     </td>
                     <td>
-                        <a class="btn btn-success" href="@Url.Action("Edit", "StavkeFakture", new { stavkaId = stavka.Id })">Izmjeni</a>
+                        <a class="btn btn-primary" href="@Url.Action("Edit", "StavkeFakture", new { stavkaId = stavka.Id })">Izmjeni</a>
                     </td>
                 </tr>
             }

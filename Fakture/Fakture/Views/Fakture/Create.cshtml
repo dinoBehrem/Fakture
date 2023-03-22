@@ -6,34 +6,35 @@
 
 <h2>Dodaj novu fakturu</h2>
 <form method="post">
+    @Html.AntiForgeryToken()
     <div class="">
-        <div class="">
-            @Html.LabelFor(model => model.DatumKreiranja, "Datum kreiranja")
-            @Html.EditorFor(model => model.DatumKreiranja, new { htmlAttributes = new { @type = "datetime-local", @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DatumKreiranja)
-        </div>
-        
+        @*<div class="">
+                @Html.LabelFor(model => model.DatumKreiranja, "Datum kreiranja")
+                @Html.EditorFor(model => model.DatumKreiranja, new { htmlAttributes = new { @type = "datetime-local", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DatumKreiranja)
+            </div>*@
+
         <div class="">
             @Html.LabelFor(model => model.DatumDospijeca, "Datum dospijeca")
             @Html.EditorFor(model => model.DatumDospijeca, new { htmlAttributes = new { @type = "datetime-local", @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.DatumDospijeca)
         </div>
-        
-        <div class="">
-            @Html.LabelFor(model => model.CijenaBezPoreza, "Cijena bez poreza")
-            @Html.EditorFor(model => model.CijenaBezPoreza, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CijenaBezPoreza)
-        </div>
-        
+
+        @*<div class="">
+                @Html.LabelFor(model => model.CijenaBezPoreza, "Cijena bez poreza")
+                @Html.EditorFor(model => model.CijenaBezPoreza, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CijenaBezPoreza)
+            </div>*@
+
         <div class="">
             @Html.LabelFor(model => model.Porez, "Odaberite porez")
-            @Html.DropDownList(nameof(ViewBag.Porez), null ,new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownList(nameof(ViewBag.Porez), null, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Porez)
         </div>
 
         <div class="">
             @Html.LabelFor(model => model.Primatelj, "Primatelj")
-            @Html.EditorFor(model => model.Primatelj)
+            @Html.EditorFor(model => model.Primatelj, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Primatelj)
         </div>
     </div>
